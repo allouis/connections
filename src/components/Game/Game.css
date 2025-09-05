@@ -29,21 +29,68 @@
   font-weight: 500;
 }
 
-.one-away-message {
-  text-align: center;
-  font-weight: bold;
+.message-area {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 16px;
-  animation: pulse 0.5s ease-in-out;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
+.game-message {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
   }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.game-board-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.board-remaining {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.board-remaining {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+  .message-area {
+    height: 25px;
+    margin-bottom: 12px;
+  }
+  
+  .game-message {
+    font-size: 14px;
+  }
+  
+  .game-board-area {
+    gap: 6px;
+  }
+  
+  .board-remaining {
+    gap: 6px;
   }
 }
 
@@ -80,11 +127,11 @@
 
 @media (max-width: 768px) {
   .control-button {
-    padding: 10px 16px;
-    font-size: 12px;
-    min-width: 90px;
+    padding: 10px 12px;
+    font-size: 11px;
+    min-width: auto;
     flex: 1;
-    max-width: 150px;
+    white-space: nowrap;
   }
 }
 

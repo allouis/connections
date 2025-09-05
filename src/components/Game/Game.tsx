@@ -1,5 +1,7 @@
 import React from 'react';
 import { Board } from '../Board/Board';
+import { Square } from '../Square/Square';
+import { SolvedGroup } from '../SolvedGroup/SolvedGroup';
 import { LivesDisplay } from '../LivesDisplay/LivesDisplay';
 import { GameOver } from '../GameOver/GameOver';
 import { GameConfig } from '../../game/types';
@@ -14,7 +16,7 @@ interface GameProps {
 export const Game: React.FC<GameProps> = ({ config }) => {
   const {
     gameState,
-    showOneAway,
+    message,
     handleSquareClick,
     handleSubmit,
     handleShuffle,
@@ -35,18 +37,43 @@ export const Game: React.FC<GameProps> = ({ config }) => {
         Create four groups of four!
       </p>
       
-      {showOneAway && (
-        <div className="one-away-message">
-          One away...
-        </div>
-      )}
+      <div className="message-area">
+        {message && (
+          <div className="game-message">
+            {message}
+          </div>
+        )}
+      </div>
       
-      <Board
-        squares={gameState.displaySquares}
-        selectedSquares={gameState.selectedSquares}
-        solvedGroups={gameState.solvedGroups}
-        onSquareClick={handleSquareClick}
-      />
+      <div className="game-board-area">
+        {gameState.solvedGroups.map(groupId => {
+          const group = gameState.config.groups.find(g => g.id === groupId);
+          if (!group) return null;
+          return (
+            <SolvedGroup
+              key={groupId}
+              group={group}
+              squares={gameState.config.squares}
+            />
+          );
+        })}
+        
+        {gameState.solvedGroups.length < 4 && (
+          <div className={gameState.solvedGroups.length > 0 ? "board-remaining" : "board"}>
+            {gameState.displaySquares
+              .filter(square => !gameState.solvedGroups.includes(square.groupId))
+              .map((square) => (
+                <Square
+                  key={square.id}
+                  square={square}
+                  isSelected={gameState.selectedSquares.has(square.id)}
+                  isSolved={false}
+                  onClick={() => handleSquareClick(square.id)}
+                />
+              ))}
+          </div>
+        )}
+      </div>
       
       <LivesDisplay
         remainingLives={gameState.remainingLives}
@@ -54,7 +81,11 @@ export const Game: React.FC<GameProps> = ({ config }) => {
       />
       
       <div className="game-controls">
-        <button onClick={handleShuffle} className="control-button secondary">
+        <button 
+          onClick={handleShuffle} 
+          className="control-button secondary"
+          disabled={gameState.solvedGroups.length === 4}
+        >
           Shuffle
         </button>
         <button 
