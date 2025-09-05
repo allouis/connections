@@ -2,6 +2,14 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .admin {
+    padding: 60px 16px 20px;
+  }
 }
 
 .admin h1 {
@@ -36,6 +44,13 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .admin-group-squares {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
 }
 
 .admin-square {
@@ -82,6 +97,23 @@
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .url-section {
+    gap: 8px;
+  }
+  
+  .url-input {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  
+  .copy-button,
+  .preview-link {
+    flex: 1;
+  }
 }
 
 .url-input {

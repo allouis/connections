@@ -3,6 +3,14 @@
   padding: 20px;
   max-width: 640px;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .game-over {
+    padding: 60px 16px 20px;
+  }
 }
 
 .game-over h2 {
@@ -49,6 +57,19 @@
   gap: 12px;
   justify-content: center;
   margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .game-over-buttons {
+    gap: 8px;
+  }
+  
+  .share-button,
+  .play-again-button {
+    padding: 12px 24px;
+    font-size: 13px;
+  }
 }
 
 .share-button,

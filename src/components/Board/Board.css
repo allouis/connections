@@ -4,5 +4,13 @@
   gap: 8px;
   max-width: 640px;
   margin: 0 auto;
-  padding: 0 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .board {
+    gap: 6px;
+    max-width: 100%;
+  }
 }
