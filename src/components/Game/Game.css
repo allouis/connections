@@ -1,0 +1,100 @@
+.game {
+  padding: 32px 20px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.game h1 {
+  text-align: center;
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  font-family: 'Source Serif Pro', 'georgia', 'times new roman', serif;
+  letter-spacing: 0.01em;
+}
+
+.instructions {
+  text-align: center;
+  color: #333333;
+  margin-bottom: 32px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.one-away-message {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 16px;
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.game-controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.control-button {
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Helvetica Neue', helvetica, arial, sans-serif;
+  border: 2px solid #000000;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-width: 120px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.control-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.control-button.secondary {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.control-button.secondary:not(:disabled):hover {
+  background-color: #f0f0f0;
+}
+
+.control-button.primary {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.control-button.primary.ready {
+  animation: readyPulse 1s ease-in-out infinite;
+}
+
+@keyframes readyPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.control-button.primary:not(:disabled):hover {
+  background-color: #4a493e;
+}

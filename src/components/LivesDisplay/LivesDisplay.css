@@ -1,0 +1,28 @@
+.lives-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lives-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.life-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #000000;
+  transition: background-color 0.2s ease;
+}
+
+.life-dot.lost {
+  background-color: #e0e0e0;
+}

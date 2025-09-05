@@ -1,0 +1,85 @@
+.game-over {
+  text-align: center;
+  padding: 20px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.game-over h2 {
+  margin-bottom: 32px;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'Source Serif Pro', 'georgia', 'times new roman', serif;
+}
+
+.groups-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.group-summary {
+  padding: 20px;
+  border-radius: 4px;
+  color: black;
+}
+
+.group-summary.unsolved {
+  border: 2px dashed #999;
+}
+
+.group-connection {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.group-items {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.game-over-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.share-button,
+.play-again-button {
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 2px solid #000000;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'Helvetica Neue', helvetica, arial, sans-serif;
+}
+
+.share-button {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.share-button:hover {
+  background-color: #f0f0f0;
+}
+
+.play-again-button {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.play-again-button:hover {
+  background-color: #333333;
+  border-color: #333333;
+}
