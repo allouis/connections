@@ -1,10 +1,11 @@
 import LZString from 'lz-string';
 import { GameConfig, Square, GameGroup, Difficulty } from './types';
 
-// More compact encoding - only store essential data
+// More compact encoding - store essential data including connections
 interface CompactGame {
   t: string[]; // texts (16 items)
   g: string;   // group assignments as string of digits "0123012301230123"
+  c: string[]; // connections (4 items)
 }
 
 const DIFFICULTY_ORDER: Difficulty[] = ['yellow', 'green', 'blue', 'purple'];
@@ -23,7 +24,8 @@ export function encodeGameConfigV2(config: GameConfig): string {
   
   const compact: CompactGame = {
     t: config.squares.map(s => s.text),
-    g: groupAssignments
+    g: groupAssignments,
+    c: config.groups.map(g => g.connection)
   };
   
   // Compress using LZ-string
@@ -47,7 +49,7 @@ export function decodeGameConfigV2(compressed: string): GameConfig | null {
     const groups: GameGroup[] = DIFFICULTY_ORDER.map((difficulty, index) => ({
       id: `group-${index}`,
       difficulty,
-      connection: '', // Connection names not stored in URL
+      connection: compact.c?.[index] || '', // Use connection from URL or empty string
       squares: []
     }));
     
@@ -75,10 +77,19 @@ function isValidCompactGame(obj: any): obj is CompactGame {
   if (!obj || typeof obj !== 'object') return false;
   if (!Array.isArray(obj.t) || obj.t.length !== 16) return false;
   if (typeof obj.g !== 'string' || obj.g.length !== 16) return false;
+  // Connection array is optional for backwards compatibility
+  if (obj.c && (!Array.isArray(obj.c) || obj.c.length !== 4)) return false;
   
   // Check all texts are strings
   for (const text of obj.t) {
     if (typeof text !== 'string') return false;
+  }
+  
+  // Check all connections are strings (if present)
+  if (obj.c) {
+    for (const connection of obj.c) {
+      if (typeof connection !== 'string') return false;
+    }
   }
   
   // Check all group assignments are valid digits 0-3
