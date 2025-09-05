@@ -3,6 +3,7 @@ import { Game } from './components/Game/Game';
 import { Admin } from './components/Admin/Admin';
 import { GameConfig } from './game/types';
 import { getGameFromURLV2 } from './game/urlEncodingV2';
+import { getBaseUrl, createAdminUrl } from './utils/urlUtils';
 import './App.css';
 
 const DEFAULT_GAME: GameConfig = {
@@ -71,7 +72,7 @@ function App() {
   if (isAdmin) {
     return (
       <>
-        <a href="/" className="home-link">← Back to Game</a>
+        <a href={getBaseUrl()} className="home-link">← Back to Game</a>
         <Admin />
       </>
     );
@@ -81,14 +82,14 @@ function App() {
     return (
       <div className="no-game">
         <h1>No Game Found</h1>
-        <p>Please provide a game URL or <a href="?admin=true">create a new game</a>.</p>
+        <p>Please provide a game URL or <a href={createAdminUrl()}>create a new game</a>.</p>
       </div>
     );
   }
   
   return (
     <>
-      <a href="?admin=true" className="admin-link">Create Puzzle</a>
+      <a href={createAdminUrl()} className="admin-link">Create Puzzle</a>
       <Game config={gameConfig} />
     </>
   );

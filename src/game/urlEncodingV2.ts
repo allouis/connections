@@ -123,7 +123,7 @@ export function getGameFromURLV2(): GameConfig | null {
 
 export function generateGameURLV2(config: GameConfig, isAdmin: boolean = false): string {
   const compressed = encodeGameConfigV2(config);
-  const baseUrl = window.location.origin + window.location.pathname;
+  const baseUrl = window.location.origin + window.location.pathname.replace(/\/$/, '');
   const params = new URLSearchParams();
   
   params.set('g', compressed);
