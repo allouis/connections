@@ -19,6 +19,11 @@ export interface GameConfig {
   squares: Square[];
 }
 
+export interface MistakeDetail {
+  squareIds: string[];
+  difficulties: Difficulty[];
+}
+
 export interface GameState {
   config: GameConfig;
   displaySquares: Square[]; // Current order on board
@@ -27,6 +32,7 @@ export interface GameState {
   remainingLives: number;
   gameStatus: 'playing' | 'won' | 'lost';
   mistakes: string[][]; // History of wrong guesses
+  mistakeDetails: MistakeDetail[]; // Detailed mistake information
 }
 
 export interface AdminGameState {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Board } from '../Board/Board';
 import { Square } from '../Square/Square';
 import { SolvedGroup } from '../SolvedGroup/SolvedGroup';
 import { LivesDisplay } from '../LivesDisplay/LivesDisplay';
@@ -24,9 +23,7 @@ export const Game: React.FC<GameProps> = ({ config }) => {
     resetGame
   } = useGameState(config);
   
-  if (gameState.gameStatus !== 'playing') {
-    return <GameOver gameState={gameState} onPlayAgain={resetGame} />;
-  }
+  const isGameOver = gameState.gameStatus !== 'playing';
   
   const canSubmit = gameState.selectedSquares.size === 4;
   
@@ -75,34 +72,42 @@ export const Game: React.FC<GameProps> = ({ config }) => {
         )}
       </div>
       
-      <LivesDisplay
-        remainingLives={gameState.remainingLives}
-        maxLives={INITIAL_LIVES}
-      />
+      {!isGameOver && (
+        <>
+          <LivesDisplay
+            remainingLives={gameState.remainingLives}
+            maxLives={INITIAL_LIVES}
+          />
+          
+          <div className="game-controls">
+            <button 
+              onClick={handleShuffle} 
+              className="control-button secondary"
+              disabled={gameState.solvedGroups.length === 4}
+            >
+              Shuffle
+            </button>
+            <button 
+              onClick={handleDeselectAll} 
+              className="control-button secondary"
+              disabled={gameState.selectedSquares.size === 0}
+            >
+              Deselect All
+            </button>
+            <button 
+              onClick={handleSubmit} 
+              className={`control-button primary ${canSubmit ? 'ready' : ''}`}
+              disabled={!canSubmit}
+            >
+              Submit
+            </button>
+          </div>
+        </>
+      )}
       
-      <div className="game-controls">
-        <button 
-          onClick={handleShuffle} 
-          className="control-button secondary"
-          disabled={gameState.solvedGroups.length === 4}
-        >
-          Shuffle
-        </button>
-        <button 
-          onClick={handleDeselectAll} 
-          className="control-button secondary"
-          disabled={gameState.selectedSquares.size === 0}
-        >
-          Deselect All
-        </button>
-        <button 
-          onClick={handleSubmit} 
-          className={`control-button primary ${canSubmit ? 'ready' : ''}`}
-          disabled={!canSubmit}
-        >
-          Submit
-        </button>
-      </div>
+      {isGameOver && (
+        <GameOver gameState={gameState} onPlayAgain={resetGame} />
+      )}
     </div>
   );
 };

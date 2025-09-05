@@ -5,6 +5,11 @@
   color: black;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   text-align: center;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .solved-group-connection {
@@ -27,6 +32,7 @@
 @media (max-width: 768px) {
   .solved-group {
     padding: 14px;
+    height: 70px;
   }
   
   .solved-group-connection {

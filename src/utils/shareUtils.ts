@@ -9,15 +9,10 @@ const DIFFICULTY_EMOJIS: Record<Difficulty, string> = {
 };
 
 export function generateShareText(gameState: GameState): string {
-  const { solvedGroups, mistakes, gameStatus, config } = gameState;
+  const { solvedGroups, mistakeDetails, config } = gameState;
   
   // Generate header
   const header = 'Connections';
-  const puzzleDate = new Date().toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric', 
-    year: 'numeric' 
-  });
   
   // Build emoji grid
   const emojiLines: string[] = [];
@@ -30,20 +25,18 @@ export function generateShareText(gameState: GameState): string {
     }
   });
   
-  // Add mistakes (if any)
-  if (mistakes.length > 0 && gameStatus === 'lost') {
-    // Show remaining unsolved squares as gray
-    const remainingGroups = config.groups.filter(g => !solvedGroups.includes(g.id));
-    remainingGroups.forEach(() => {
-      emojiLines.push('⬜⬜⬜⬜');
-    });
-  }
+  // Add mistakes with difficulty breakdowns
+  mistakeDetails.forEach(mistake => {
+    const mistakeLine = mistake.difficulties
+      .map(difficulty => DIFFICULTY_EMOJIS[difficulty])
+      .join('');
+    emojiLines.push(mistakeLine);
+  });
   
   // Generate result text
-  const mistakesText = mistakes.length > 0 ? `Mistakes: ${mistakes.length}/${INITIAL_LIVES}` : 'Perfect!';
+  const mistakesText = mistakeDetails.length > 0 ? `Mistakes: ${mistakeDetails.length}/${INITIAL_LIVES}` : 'Perfect!';
   
   return `${header}
-${puzzleDate}
 ${mistakesText}
 
 ${emojiLines.join('\n')}`;

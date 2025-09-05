@@ -10,7 +10,8 @@ export function createInitialGameState(config: GameConfig): GameState {
     solvedGroups: [],
     remainingLives: INITIAL_LIVES,
     gameStatus: 'playing',
-    mistakes: []
+    mistakes: [],
+    mistakeDetails: []
   };
 }
 
@@ -69,12 +70,20 @@ export function submitGuess(state: GameState): GameState {
     const newLives = state.remainingLives - 1;
     const newMistakes = [...state.mistakes, selectedIds];
     
+    // Track difficulty breakdown of this mistake
+    const difficulties = selectedSquares.map(s => s.difficulty);
+    const newMistakeDetails = [...state.mistakeDetails, {
+      squareIds: selectedIds,
+      difficulties
+    }];
+    
     return {
       ...state,
       remainingLives: newLives,
       selectedSquares: new Set(),
       gameStatus: newLives === 0 ? 'lost' : 'playing',
-      mistakes: newMistakes
+      mistakes: newMistakes,
+      mistakeDetails: newMistakeDetails
     };
   }
 }
